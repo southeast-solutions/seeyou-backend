@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Domain;
 using Domain.Contracts;
 using Domain.DTO;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Business.Services
 {
@@ -21,7 +22,7 @@ namespace Business.Services
             return experienceRepository.AsQueryable().ToList();
         }
 
-        public async Task Add(ExperienceEntityDto entityDto)
+        public async Task Add([FromBody] ExperienceEntityDto entityDto)
         {
             await experienceRepository.Insert(entityDto.ToModel());
         }

@@ -1,5 +1,8 @@
-﻿namespace Domain
+﻿using Domain.Attributes;
+
+namespace Domain
 {
+    [BsonCollection("users")]
     public class ConciergeEntity : UserEntity
     {
         public string City { get; set; }

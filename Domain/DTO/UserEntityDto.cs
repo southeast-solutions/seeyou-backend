@@ -1,11 +1,9 @@
-﻿using Domain.Models;
-
-namespace Domain.DTO
+﻿namespace Domain.DTO
 {
     public class UserEntityDto
     {
-        public TourBusinessEntity TourBusinessEntity { get; set; }
-        public TourOperatorEntity TourOperatorEntity { get; set; }
+        public TourBusinessData TourBusinessData { get; set; }
+        public TourOperatorData TourOperatorData { get; set; }
         public string UserType { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
@@ -19,4 +17,5 @@ namespace Domain.DTO
         public bool IsStudent { get; set; }
         public string LastName { get; set; }
     }
+
 }
