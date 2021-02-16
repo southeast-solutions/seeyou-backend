@@ -1,4 +1,4 @@
-using Business.Services;
+﻿using Business.Services;
 using DataAccess;
 using Domain;
 using Domain.Contracts;
@@ -33,6 +33,8 @@ namespace Api
             
             services.AddTransient(typeof(IMongoDbRepository<>), typeof(MongoDbRepository<>));
             services.AddSingleton(typeof(ITestService), typeof(TestService));
+            services.AddSingleton(typeof(IExperienceService), typeof(ExperienceService));
+            services.AddSingleton(typeof(IUserService), typeof(UserService));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
