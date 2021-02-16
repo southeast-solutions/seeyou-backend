@@ -1,4 +1,5 @@
 ﻿using Domain.Enums;
+using Domain.Models;
 
 namespace Domain.DTO
 {
@@ -26,7 +27,7 @@ namespace Domain.DTO
             {
                 return new PromoterEntity()
                 {
-                    UserType = UserTypes.Promoter.ToString(),
+                    UserType = UserTypes.Promoter,
                     City = dto.City,
                     Country = dto.Country,
                     CurrentJob = dto.CurrentJob,
@@ -42,7 +43,7 @@ namespace Domain.DTO
             {
                 return new ContentCreatorEntity()
                 {
-                    UserType = UserTypes.ContentCreator.ToString(),
+                    UserType = UserTypes.ContentCreator,
                     City = dto.City,
                     DisponibilityDescription = dto.DisponibilityDescription,
                     FirstName = dto.FirstName,
@@ -55,7 +56,7 @@ namespace Domain.DTO
             {
                 return new ConciergeEntity()
                 {
-                    UserType = UserTypes.Concierge.ToString(),
+                    UserType = UserTypes.Concierge,
                     City = dto.City,
                     Country = dto.Country,
                     FirstName = dto.FirstName,
@@ -64,28 +65,34 @@ namespace Domain.DTO
                     SocialLinks = dto.SocialLinks
                 };
             }
-            //else if (dto.UserType == UserTypes.Tour.ToString())
-            else
+            else if (dto.UserType == UserTypes.Tour.ToString())
             {
                 return new TourEntity()
                 {
-                    UserType = UserTypes.Tour.ToString(),
-                    TourBusinessData = new TourBusinessData()
+                    UserType = UserTypes.Tour,
+                    TourBusinessEntity = new TourBusinessEntity()
                     {
-                        Adress = dto.TourBusinessData.Adress,
-                        BusinessName = dto.TourBusinessData.BusinessName,
-                        Cui = dto.TourBusinessData.Cui,
-                        SocialLinks = dto.TourBusinessData.SocialLinks,
-                        Website = dto.TourBusinessData.Website
+                        Adress = dto.TourBusinessEntity.Adress,
+                        BusinessName = dto.TourBusinessEntity.BusinessName,
+                        Cui = dto.TourBusinessEntity.Cui,
+                        SocialLinks = dto.TourBusinessEntity.SocialLinks,
+                        Website = dto.TourBusinessEntity.Website
                     },
-                    TourOperatorData = new TourOperatorData() 
+                    TourOperatorEntity = new TourOperatorEntity() 
                     {
-                        City = dto.TourOperatorData.City,
-                        FirstName = dto.TourOperatorData.FirstName,
-                        LastName = dto.TourOperatorData.LastName,
-                        ForeignLanguages = dto.TourOperatorData.ForeignLanguages,
-                        SocialLinks = dto.TourOperatorData.SocialLinks
+                        City = dto.TourOperatorEntity.City,
+                        FirstName = dto.TourOperatorEntity.FirstName,
+                        LastName = dto.TourOperatorEntity.LastName,
+                        ForeignLanguages = dto.TourOperatorEntity.ForeignLanguages,
+                        SocialLinks = dto.TourOperatorEntity.SocialLinks
                     }
+                };
+            }
+            else
+            {
+                return new UnknownUserEntity()
+                {
+                    UserType = UserTypes.Unknown
                 };
             }
         }

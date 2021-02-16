@@ -10,7 +10,7 @@ namespace Api.Controllers
     [Route("[controller]")]
     public class ExperienceController : ControllerBase
     {
-        private IExperienceService experienceService;
+        private readonly IExperienceService experienceService;
 
         public ExperienceController(IExperienceService experienceService)
         {

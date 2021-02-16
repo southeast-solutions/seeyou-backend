@@ -1,8 +1,5 @@
-﻿using Domain.Attributes;
-
-namespace Domain
+﻿namespace Domain
 {
-    [BsonCollection("users")]
     public class ContentCreatorEntity : UserEntity
     {
         public string City { get; set; }
