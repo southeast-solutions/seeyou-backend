@@ -26,57 +26,57 @@ namespace Business.Services
         public async Task Add(UserEntityDto entityDto)
         {
             var user = entityDto.ToModel();
-            if (ValidateUserEntity(user))
+            if (IsUserValid(user))
             {
                 await userRepository.Insert(user);
             }
         }
 
-        private bool ValidateUserEntity(UserEntity user)
+        private bool IsUserValid(UserEntity user)
         {
             if (!Enum.IsDefined(typeof(UserTypes), user.UserType))
             {
                 return false;
             }
-            switch ((int)user.UserType)
+            switch (user.UserType)
             {
-                case 1:
+                case UserTypes.Promoter:
                 {
-                    return ValidatePromoterEntity((PromoterEntity)user);
+                    return IsValidPromoterEntity((PromoterEntity)user);
                 }
-                case 2:
+                case UserTypes.ContentCreator:
                 {
-                    return ValidateContentCreatorEntity((ContentCreatorEntity)user);
+                    return IsValidContentCreatorEntity((ContentCreatorEntity)user);
                 }
-                case 3:
+                case UserTypes.Concierge:
                 {
-                    return ValidateConciergeEntity((ConciergeEntity)user);
+                    return IsValidConciergeEntity((ConciergeEntity)user);
                 }
-                case 4:
+                case UserTypes.Tour:
                 {
-                    return ValidateTourEntity((TourEntity)user);
+                    return IsValidTourEntity((TourEntity)user);
                 }
                 default:
                     return false;
             }
         }
 
-        private bool ValidatePromoterEntity(PromoterEntity promoter)
+        private bool IsValidPromoterEntity(PromoterEntity promoter)
         {
             return true;
         }
 
-        private bool ValidateContentCreatorEntity(ContentCreatorEntity contentCreator)
+        private bool IsValidContentCreatorEntity(ContentCreatorEntity contentCreator)
         {
             return true;
         }
 
-        private bool ValidateConciergeEntity(ConciergeEntity concierge)
+        private bool IsValidConciergeEntity(ConciergeEntity concierge)
         {
             return true;
         }
 
-        private bool ValidateTourEntity(TourEntity tour)
+        private bool IsValidTourEntity(TourEntity tour)
         {
             return true;
         }
