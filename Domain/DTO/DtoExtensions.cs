@@ -23,11 +23,11 @@ namespace Domain.DTO
 
         public static UserEntity ToModel(this UserEntityDto dto)
         {
-            if (dto.UserType == UserTypes.Promoter.ToString())
+            if (dto.UserType == UserTypes.PROMOTER.ToString())
             {
                 return new PromoterEntity()
                 {
-                    UserType = UserTypes.Promoter,
+                    UserType = UserTypes.PROMOTER,
                     City = dto.City,
                     Country = dto.Country,
                     CurrentJob = dto.CurrentJob,
@@ -39,11 +39,11 @@ namespace Domain.DTO
                     SocialLinks = dto.SocialLinks
                 };
             }
-            else if (dto.UserType == UserTypes.ContentCreator.ToString())
+            else if (dto.UserType == UserTypes.CONTENTCREATOR.ToString())
             {
                 return new ContentCreatorEntity()
                 {
-                    UserType = UserTypes.ContentCreator,
+                    UserType = UserTypes.CONTENTCREATOR,
                     City = dto.City,
                     DisponibilityDescription = dto.DisponibilityDescription,
                     FirstName = dto.FirstName,
@@ -52,11 +52,11 @@ namespace Domain.DTO
                     SocialLinks = dto.SocialLinks
                 };
             }
-            else if (dto.UserType == UserTypes.Concierge.ToString())
+            else if (dto.UserType == UserTypes.CONCIERGE.ToString())
             {
                 return new ConciergeEntity()
                 {
-                    UserType = UserTypes.Concierge,
+                    UserType = UserTypes.CONCIERGE,
                     City = dto.City,
                     Country = dto.Country,
                     FirstName = dto.FirstName,
@@ -65,11 +65,11 @@ namespace Domain.DTO
                     SocialLinks = dto.SocialLinks
                 };
             }
-            else if (dto.UserType == UserTypes.Tour.ToString())
+            else if (dto.UserType == UserTypes.TOUR.ToString())
             {
                 return new TourEntity()
                 {
-                    UserType = UserTypes.Tour,
+                    UserType = UserTypes.TOUR,
                     TourBusinessEntity = new TourBusinessEntity()
                     {
                         Adress = dto.TourBusinessEntity.Adress,
@@ -92,7 +92,7 @@ namespace Domain.DTO
             {
                 return new UnknownUserEntity()
                 {
-                    UserType = UserTypes.Unknown
+                    UserType = UserTypes.UNKNOWN
                 };
             }
         }

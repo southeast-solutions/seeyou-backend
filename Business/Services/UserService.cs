@@ -40,19 +40,19 @@ namespace Business.Services
             }
             switch (user.UserType)
             {
-                case UserTypes.Promoter:
+                case UserTypes.PROMOTER:
                 {
                     return IsValidPromoterEntity((PromoterEntity)user);
                 }
-                case UserTypes.ContentCreator:
+                case UserTypes.CONTENTCREATOR:
                 {
                     return IsValidContentCreatorEntity((ContentCreatorEntity)user);
                 }
-                case UserTypes.Concierge:
+                case UserTypes.CONCIERGE:
                 {
                     return IsValidConciergeEntity((ConciergeEntity)user);
                 }
-                case UserTypes.Tour:
+                case UserTypes.TOUR:
                 {
                     return IsValidTourEntity((TourEntity)user);
                 }
