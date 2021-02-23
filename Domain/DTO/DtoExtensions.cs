@@ -5,14 +5,6 @@ namespace Domain.DTO
 {
     public static class DtoExtensions
     {
-        public static TestEntity ToModel(this TestEntityDto dto)
-        {
-            return new TestEntity()
-            {
-                MyProperty = dto.MyProperty
-            };
-        }
-
         public static ExperienceEntity ToModel(this ExperienceEntityDto dto)
         {
             return new ExperienceEntity()
@@ -39,7 +31,8 @@ namespace Domain.DTO
                     SocialLinks = dto.SocialLinks
                 };
             }
-            else if (dto.UserType == UserTypes.ContentCreator.ToString())
+            
+            if (dto.UserType == UserTypes.ContentCreator.ToString())
             {
                 return new ContentCreatorEntity()
                 {
@@ -52,7 +45,8 @@ namespace Domain.DTO
                     SocialLinks = dto.SocialLinks
                 };
             }
-            else if (dto.UserType == UserTypes.Concierge.ToString())
+            
+            if (dto.UserType == UserTypes.Concierge.ToString())
             {
                 return new ConciergeEntity()
                 {
@@ -65,7 +59,8 @@ namespace Domain.DTO
                     SocialLinks = dto.SocialLinks
                 };
             }
-            else if (dto.UserType == UserTypes.Tour.ToString())
+            
+            if (dto.UserType == UserTypes.Tour.ToString())
             {
                 return new TourEntity()
                 {
@@ -88,13 +83,11 @@ namespace Domain.DTO
                     }
                 };
             }
-            else
+
+            return new UnknownUserEntity()
             {
-                return new UnknownUserEntity()
-                {
-                    UserType = UserTypes.Unknown
-                };
-            }
+                UserType = UserTypes.Unknown
+            };
         }
     }
 }
