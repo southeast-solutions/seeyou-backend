@@ -1,6 +1,8 @@
-﻿using Business.Services;
+using Business;
+using Business.Services;
 using DataAccess;
 using Domain;
+using Domain.AWS;
 using Domain.Contracts;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -26,15 +28,17 @@ namespace Api
         {
             services.AddControllers();
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "Api", Version = "v1"}); });
+            services.AddLogging();
             
             services.Configure<MongoDbSettings>(Configuration.GetSection("MongoDbSettings"));
             services.AddSingleton(serviceProvider =>
                 serviceProvider.GetRequiredService<IOptions<MongoDbSettings>>().Value);
             
             services.AddTransient(typeof(IMongoDbRepository<>), typeof(MongoDbRepository<>));
-            services.AddSingleton(typeof(ITestService), typeof(TestService));
             services.AddSingleton(typeof(IExperienceService), typeof(ExperienceService));
             services.AddSingleton(typeof(IUserService), typeof(UserService));
+            
+            services.SetupAwsServices(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -5,10 +5,10 @@ namespace Domain.Enums
     [Flags]
     public enum UserTypes
     {
-        UNKNOWN,
-        PROMOTER,
-        CONTENTCREATOR,
-        CONCIERGE,
-        TOUR
+        Unknown,
+        Promoter,
+        ContentCreator,
+        Concierge,
+        Tour
     }
 }
