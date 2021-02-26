@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Domain;
 using Domain.Contracts;
 using Domain.DTO;
+using Domain.Request.Experiences;
 
 namespace Business.Services
 {
@@ -16,14 +17,24 @@ namespace Business.Services
             this.experienceRepository = experienceRepository;
         }
 
-        public List<ExperienceEntity> GetAll()
+        public async Task<IEnumerable<ExperienceEntity>> GetAllAsync(ExperiencesRequest experiencesRequest)
         {
-            return experienceRepository.AsQueryable().ToList();
+            return await experienceRepository.FilterBy(experience => experience.Country == experiencesRequest.Country);
         }
 
-        public async Task Add(ExperienceEntityDto entityDto)
+        public async Task Add(AddExperienceRequest addExperienceRequest)
         {
-            await experienceRepository.Insert(entityDto.ToModel());
+            await experienceRepository.Insert(addExperienceRequest.Experience);
+        }
+
+        public async Task Update(UpdateExperienceRequest updateExperienceRequest)
+        {
+            await experienceRepository.Update(updateExperienceRequest.Experience);
+        }
+
+        public async Task Delete(DeleteExperienceRequest deleteExperienceRequest)
+        {
+            await experienceRepository.Delete(experience => experience.Id == MongoDB.Bson.ObjectId.Parse(deleteExperienceRequest.Id));
         }
     }
 }
