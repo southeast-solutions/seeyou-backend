@@ -1,7 +1,7 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Domain;
 using Domain.Contracts;
-using Domain.DTO;
+using Domain.Request.Experiences;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
@@ -17,19 +17,35 @@ namespace Api.Controllers
             this.experienceService = experienceService;
         }
 
-        [HttpGet]
-        public IActionResult Get()
+        [HttpPost("getExperiences")]
+        public IActionResult GetExperiences([FromBody] ExperiencesRequest experiencesRequest)
         {
-            var experiences = experienceService.GetAll();
+            var experiences = experienceService.GetAllAsync(experiencesRequest);
             return Ok(experiences);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Post([FromBody] ExperienceEntityDto experienceEntity)
+        [HttpPost("addExperience")]
+        public async Task<IActionResult> AddExperience([FromBody] AddExperienceRequest addExperienceRequest)
         {
-            await experienceService.Add(experienceEntity);
+            await experienceService.Add(addExperienceRequest);
 
-            return Created(nameof(Post), experienceEntity);
+            return Created(nameof(AddExperience), addExperienceRequest);
+        }
+
+        [HttpPost("updateExperience")]
+        public async Task<IActionResult> UpdateExperience([FromBody] UpdateExperienceRequest updateExperienceRequest)
+        {
+            await experienceService.Update(updateExperienceRequest);
+
+            return Ok(updateExperienceRequest);
+        }
+
+        [HttpPost("deleteExperience")]
+        public async Task<IActionResult> DeleteExperience([FromBody] DeleteExperienceRequest deleteExperienceRequest)
+        {
+            await experienceService.Delete(deleteExperienceRequest);
+
+            return Ok(deleteExperienceRequest);
         }
     }
 }

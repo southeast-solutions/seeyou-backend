@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 using Domain.Contracts;
 using Domain.DTO;
 using Domain.Request;
@@ -12,6 +12,7 @@ namespace Api.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService userService;
+
         private readonly IAuthService authService;
 
         public UserController(IUserService userService, IAuthService authService)
