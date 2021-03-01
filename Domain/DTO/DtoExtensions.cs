@@ -5,13 +5,13 @@ namespace Domain.DTO
 {
     public static class DtoExtensions
     {
-        public static ExperienceEntity ToModel(this ExperienceEntityDto dto)
-        {
-            return new ExperienceEntity()
-            {
-                Name = dto.Name
-            };
-        }
+        //public static ExperienceEntity ToModel(this ExperienceEntityDto dto)
+        //{
+        //    return new ExperienceEntity()
+        //    {
+        //        Name = dto.Name
+        //    };
+        //}
 
         public static UserEntity ToModel(this UserEntityDto dto)
         {
