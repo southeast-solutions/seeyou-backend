@@ -7,7 +7,7 @@ namespace Domain.Contracts
 {
     public interface IExperienceService
     {
-        public Task<IEnumerable<ExperienceEntity>> GetAllAsync(ExperiencesRequest experiencesRequest);
+        public Task<IEnumerable<ExperienceEntity>> GetAllAsync(GetExperiencesRequest getExperiencesRequest);
 
         public Task Add(AddExperienceRequest addExperienceRequest);
 

@@ -17,11 +17,11 @@ namespace Business.Services
             this.experienceRepository = experienceRepository;
         }
 
-        public async Task<IEnumerable<ExperienceEntity>> GetAllAsync(ExperiencesRequest experiencesRequest)
+        public async Task<IEnumerable<ExperienceEntity>> GetAllAsync(GetExperiencesRequest getExperiencesRequest)
         {
-            return await experienceRepository.FilterBy(experience => experience.Country == experiencesRequest.Country);
+            return await experienceRepository.FilterBy(experience => experience.Country == getExperiencesRequest.Country);
         }
-
+        
         public async Task Add(AddExperienceRequest addExperienceRequest)
         {
             await experienceRepository.Insert(addExperienceRequest.Experience);

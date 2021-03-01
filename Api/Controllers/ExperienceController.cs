@@ -18,9 +18,9 @@ namespace Api.Controllers
         }
 
         [HttpPost("getExperiences")]
-        public IActionResult GetExperiences([FromBody] ExperiencesRequest experiencesRequest)
+        public async Task<IActionResult> GetExperiences([FromBody] GetExperiencesRequest getExperiencesRequest)
         {
-            var experiences = experienceService.GetAllAsync(experiencesRequest);
+            var experiences = await experienceService.GetAllAsync(getExperiencesRequest);
             return Ok(experiences);
         }
 
