@@ -2,7 +2,7 @@
 
 namespace Domain.Request.Experiences
 {
-    public class ExperiencesRequest
+    public class GetExperiencesRequest
     {
         public string Country { get; set; }
         public PhysicalLocationEntity Location { get; set; }
