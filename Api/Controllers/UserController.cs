@@ -1,7 +1,9 @@
+using System;
 using System.Threading.Tasks;
 using Domain.Contracts;
 using Domain.DTO;
 using Domain.Request;
+using Domain.Request.Auth;
 using Domain.Response;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,15 +25,34 @@ namespace Api.Controllers
 
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] UserEntityDto userEntity)
-        {
-            await userService.Add(userEntity);
-            
+        {               
             var registerRequest = new RegisterRequest()
             {
                 Email = userEntity.Email,
                 Password = userEntity.Password
             };
-            await authService.Register(registerRequest);
+            
+            var registerResponse = await authService.Register(registerRequest);
+            if (!registerResponse.Success)
+            {
+                return Ok(registerResponse);
+            }
+
+            try
+            {
+                await userService.Add(userEntity);
+            }
+            catch (Exception)
+            {
+                var deleteRequest = new DeleteAuthUserRequest()
+                {
+                    Id = registerResponse.Id
+                };
+
+                await authService.DeleteUser(deleteRequest);
+
+                return StatusCode(500);
+            }
 
             return Created(nameof(Register), userEntity);
         }

@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Domain.Request;
+using Domain.Request.Auth;
 using Domain.Response;
 
 namespace Domain.Contracts
@@ -11,5 +12,6 @@ namespace Domain.Contracts
         Task<VerifyRegisterResponse> VerifyRegister(VerifyRegisterRequest request);
         Task<ResetPasswordResponse> ResetPassword(ResetPasswordRequest request);
         Task<ConfirmResetPasswordResponse> ConfirmResetPassword(ConfirmResetPasswordRequest request);
+        Task DeleteUser(DeleteAuthUserRequest request);
     }
 }

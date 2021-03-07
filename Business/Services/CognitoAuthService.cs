@@ -7,6 +7,7 @@ using Amazon.Extensions.CognitoAuthentication;
 using Domain.Contracts;
 using Domain.Enums;
 using Domain.Request;
+using Domain.Request.Auth;
 using Domain.Response;
 
 namespace Domain.AWS
@@ -46,8 +47,9 @@ namespace Domain.AWS
 
             try
             {
-                await client.SignUpAsync(registerRequest);
+                var res = await client.SignUpAsync(registerRequest);
                 registerResponse.Success = true;
+                registerResponse.Id = res.UserSub;
             }
             catch (UsernameExistsException)
             {
@@ -178,6 +180,17 @@ namespace Domain.AWS
             {
                 Success = success
             };
+        }
+
+        public async Task DeleteUser(DeleteAuthUserRequest request)
+        {
+            var deleteReq = new AdminDeleteUserRequest()
+            {
+                UserPoolId = awsEnvironment.UserPoolId,
+                Username = request.Id
+            };
+
+            await client.AdminDeleteUserAsync(deleteReq);
         }
     }
 }
