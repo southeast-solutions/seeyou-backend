@@ -6,6 +6,8 @@ using Domain;
 using Domain.Contracts;
 using Domain.DTO;
 using Domain.Enums;
+using Domain.Request.UserOperations;
+using MongoDB.Bson;
 
 namespace Business.Services
 {
@@ -30,6 +32,13 @@ namespace Business.Services
             {
                 await userRepository.Insert(user);
             }
+        }
+
+        public async Task Verify(VerifyUserRequest request)
+        {
+            var user = await userRepository.FindById(new ObjectId(request.Id));
+            user.Verified = true;
+            await userRepository.Update(user);
         }
 
         private bool IsUserValid(UserEntity user)

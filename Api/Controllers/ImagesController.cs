@@ -2,13 +2,15 @@
 using Domain.AWS;
 using Domain.Contracts;
 using Domain.Request.Other;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
 {
     [ApiController]
+    [Authorize]
     [Route("[controller]")]
-    public class ImagesController : ControllerBase
+    public class ImagesController : BaseController
     {
         private readonly IImageStorageService imageStorageService;
         private readonly BucketConfig bucketConfig;

@@ -37,9 +37,16 @@ namespace Domain.AWS
                 Name = "email",
                 Value = request.Email
             };
+
+            var userType = new AttributeType()
+            {
+                Name = "custom:custom:userType",
+                Value = request.UserType
+            };
             
             registerRequest.UserAttributes.Add(emailAttribute);
-
+            registerRequest.UserAttributes.Add(userType);
+            
             RegisterResponse registerResponse = new RegisterResponse()
             {
                 Success = false
@@ -85,7 +92,7 @@ namespace Domain.AWS
             try
             {
                 AuthFlowResponse authResponse = await user.StartWithSrpAuthAsync(authRequest).ConfigureAwait(false);
-                loginResponse.Token = authResponse.AuthenticationResult.AccessToken;
+                loginResponse.Token = authResponse.AuthenticationResult.IdToken;
                 loginResponse.Success = true;
             }
             catch (UserNotFoundException)

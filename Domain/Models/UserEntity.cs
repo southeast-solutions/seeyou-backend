@@ -10,5 +10,7 @@ namespace Domain
     {
         [BsonRepresentation(BsonType.String)]
         public UserTypes UserType { get; set; }
+        
+        public bool Verified { get; set; }
     }
 }
