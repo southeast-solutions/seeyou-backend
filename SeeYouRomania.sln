@@ -1,14 +1,14 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{55BDC6F1-75DD-4439-946B-F73509793DE9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeeYouRomania.DataAccess", "SeeYouRomania.DataAccess\SeeYouRomania.DataAccess.csproj", "{55BDC6F1-75DD-4439-946B-F73509793DE9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{80103A7F-8E83-4788-92C4-787F220D6A44}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeeYouRomania.Domain", "SeeYouRomania.Domain\SeeYouRomania.Domain.csproj", "{80103A7F-8E83-4788-92C4-787F220D6A44}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Business", "Business\Business.csproj", "{4AC660DB-B7FD-46C9-8628-29ED70B79AD3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeeYouRomania.Business", "SeeYouRomania.Business\SeeYouRomania.Business.csproj", "{4AC660DB-B7FD-46C9-8628-29ED70B79AD3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api", "Api\Api.csproj", "{1DD2910C-04C6-40FD-ACB4-1C7609469FCB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeeYouRomania.Api", "SeeYouRomania.Api\SeeYouRomania.Api.csproj", "{1DD2910C-04C6-40FD-ACB4-1C7609469FCB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{D3932104-FFBB-477D-B4BF-D0F3B3EB3836}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeeYouRomania.Test", "SeeYouRomania.Test\SeeYouRomania.Test.csproj", "{D3932104-FFBB-477D-B4BF-D0F3B3EB3836}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

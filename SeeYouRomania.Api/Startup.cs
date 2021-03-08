@@ -1,15 +1,14 @@
-using System;
 using System.Collections.Generic;
 using System.Net;
 using Business;
 using Business.Services;
 using DataAccess;
 using Domain;
+using Domain.AWS;
 using Domain.Contracts;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -33,7 +32,7 @@ namespace Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "Api", Version = "v1"}); });
+            services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "SeeYouRomania.Api", Version = "v1"}); });
             services.AddLogging();
             
             services.Configure<MongoDbSettings>(Configuration.GetSection("MongoDbSettings"));
@@ -82,7 +81,7 @@ namespace Api
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Api v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SeeYouRomania.Api v1"));
             }
 
             app.UseHttpsRedirection();

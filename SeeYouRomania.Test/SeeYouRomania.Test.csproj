@@ -4,6 +4,8 @@
         <TargetFramework>netcoreapp3.1</TargetFramework>
 
         <IsPackable>false</IsPackable>
+
+        <RootNamespace>Test</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
@@ -15,8 +17,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Business\Business.csproj" />
-      <ProjectReference Include="..\Domain\Domain.csproj" />
+      <ProjectReference Include="..\SeeYouRomania.Business\SeeYouRomania.Business.csproj" />
+      <ProjectReference Include="..\SeeYouRomania.Domain\SeeYouRomania.Domain.csproj" />
     </ItemGroup>
 
 </Project>
