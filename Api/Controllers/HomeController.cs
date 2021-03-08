@@ -5,7 +5,7 @@ namespace Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class HomeController : ControllerBase
+    public class HomeController : BaseController
     {
         [HttpGet]
         public String Get()

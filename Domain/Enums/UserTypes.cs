@@ -9,6 +9,7 @@ namespace Domain.Enums
         Promoter,
         ContentCreator,
         Concierge,
-        Tour
+        Tour,
+        Admin
     }
 }

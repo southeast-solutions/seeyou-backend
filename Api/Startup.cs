@@ -6,8 +6,10 @@ using Business.Services;
 using DataAccess;
 using Domain;
 using Domain.Contracts;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -43,16 +45,19 @@ namespace Api
             services.AddSingleton(typeof(IUserService), typeof(UserService));
             
             services.SetupAwsServices(Configuration);
-            // services.AddAuthentication()
-            //     .AddJwtBearer(options => options.TokenValidationParameters = GetTokenValidationParams());
+            services.AddAuthentication(x =>
+                {
+                    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
+                .AddJwtBearer(options => options.TokenValidationParameters = GetTokenValidationParams());
         }
 
         private TokenValidationParameters GetTokenValidationParams()
         {
-            Console.WriteLine(Configuration["AwsEnvironment.Region"]);
-            var cognitoIssuer = $"https://cognito-idp.{Configuration["AwsEnvironment.Region"]}.amazonaws.com/{Configuration["userPoolId"]}";
+            var awsEnvironment = Configuration.GetSection("AwsEnvironment").Get<AwsEnvironment>();
+            var cognitoIssuer = $"https://cognito-idp.{awsEnvironment.Region}.amazonaws.com/{awsEnvironment.UserPoolId}";
             var jwtKeySetUrl = $"{cognitoIssuer}/.well-known/jwks.json";
-            var cognitoAudience = Configuration["appClientId"];
 
             return new TokenValidationParameters
             {
@@ -66,7 +71,7 @@ namespace Api
                 ValidateIssuerSigningKey = true,
                 ValidateIssuer = true,
                 ValidateLifetime = true,
-                ValidAudience = cognitoAudience
+                ValidAudience = awsEnvironment.AppClientId
             };
         }
 
@@ -81,9 +86,8 @@ namespace Api
             }
 
             app.UseHttpsRedirection();
-
+            app.UseAuthentication();
             app.UseRouting();
-
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });

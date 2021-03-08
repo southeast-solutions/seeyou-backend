@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Domain;
 using Domain.Attributes;
 using Domain.Contracts;
+using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace DataAccess
@@ -31,6 +32,13 @@ namespace DataAccess
         public IQueryable<T> AsQueryable()
         {
             return collection.AsQueryable();
+        }
+
+        public async Task<T> FindById(ObjectId id)
+        {
+            var result =  await collection.FindAsync(t => t.Id.Equals(id));
+
+            return result.First();
         }
 
         public async Task<IEnumerable<T>> FilterBy(Expression<Func<T, bool>> filterExpression)
