@@ -5,7 +5,6 @@ using Business;
 using Business.Services;
 using DataAccess;
 using Domain;
-using Domain.AWS;
 using Domain.Contracts;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
