@@ -1,8 +1,10 @@
+using System;
+using System.Collections.Generic;
+using System.Net;
 using Business;
 using Business.Services;
 using DataAccess;
 using Domain;
-using Domain.AWS;
 using Domain.Contracts;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -10,7 +12,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Newtonsoft.Json;
 
 namespace Api
 {
@@ -39,6 +43,31 @@ namespace Api
             services.AddSingleton(typeof(IUserService), typeof(UserService));
             
             services.SetupAwsServices(Configuration);
+            // services.AddAuthentication()
+            //     .AddJwtBearer(options => options.TokenValidationParameters = GetTokenValidationParams());
+        }
+
+        private TokenValidationParameters GetTokenValidationParams()
+        {
+            Console.WriteLine(Configuration["AwsEnvironment.Region"]);
+            var cognitoIssuer = $"https://cognito-idp.{Configuration["AwsEnvironment.Region"]}.amazonaws.com/{Configuration["userPoolId"]}";
+            var jwtKeySetUrl = $"{cognitoIssuer}/.well-known/jwks.json";
+            var cognitoAudience = Configuration["appClientId"];
+
+            return new TokenValidationParameters
+            {
+                IssuerSigningKeyResolver = (s, securityToken, identifier, parameters) =>
+                {
+                    var json = new WebClient().DownloadString(jwtKeySetUrl);
+                    var keys = JsonConvert.DeserializeObject<JsonWebKeySet>(json)?.Keys;
+                    return (IEnumerable<SecurityKey>)keys;
+                },
+                ValidIssuer = cognitoIssuer,
+                ValidateIssuerSigningKey = true,
+                ValidateIssuer = true,
+                ValidateLifetime = true,
+                ValidAudience = cognitoAudience
+            };
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

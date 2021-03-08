@@ -1,12 +1,13 @@
 ﻿using System.Threading.Tasks;
-using Domain;
 using Domain.Contracts;
 using Domain.Request.Experiences;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
 {
     [ApiController]
+    [Authorize]
     [Route("[controller]")]
     public class ExperienceController : ControllerBase
     {
