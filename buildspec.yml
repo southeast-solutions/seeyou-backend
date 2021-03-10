@@ -1,0 +1,13 @@
+version: 0.2
+
+phases:
+
+  build:
+    commands:
+      - dotnet restore SeeYouRomania.Api/SeeYouRomania.Api.csproj
+      - dotnet build SeeYouRomania.Api/SeeYouRomania.Api.csproj
+      - dotnet publish SeeYouRomania.Api/SeeYouRomania.Api.csproj -o ./staging/app
+artifacts:
+  files:
+    - '**/*'
+  base-directory: 'SeeYouRomania.Api/staging'
