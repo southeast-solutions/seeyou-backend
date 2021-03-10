@@ -16,9 +16,9 @@ phases:
   build:
     commands:
       - dotnet build SeeYouRomania.Api/SeeYouRomania.Api.csproj
-      - dotnet publish SeeYouRomania.Api/SeeYouRomania.Api.csproj -o ./staging/app
+      - dotnet publish SeeYouRomania.Api/SeeYouRomania.Api.csproj -o ./build-output
 
 artifacts:
   files:
     - '**/*'
-  base-directory: 'SeeYouRomania.Api/staging'
+  base-directory: './build-output'
