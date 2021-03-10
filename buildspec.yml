@@ -20,4 +20,4 @@ phases:
   artifacts:
     files:
       - '**/*'
-  base-directory: 'SeeYouRomania.Api/staging'
+    base-directory: 'SeeYouRomania.Api/staging'
