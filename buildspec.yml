@@ -9,7 +9,7 @@ phases:
     runtime-versions:
       dotnet: ${DOTNET_CORE_RUNTIME}
   
-  pre-build:
+  pre_build:
     commands:
       - dotnet restore SeeYouRomania.Api/SeeYouRomania.Api.csproj
 
@@ -17,7 +17,8 @@ phases:
     commands:
       - dotnet build SeeYouRomania.Api/SeeYouRomania.Api.csproj
       - dotnet publish SeeYouRomania.Api/SeeYouRomania.Api.csproj -o ./staging/app
-  artifacts:
-    files:
-      - '**/*'
-    base-directory: 'SeeYouRomania.Api/staging'
+
+artifacts:
+  files:
+    - '**/*'
+  base-directory: 'SeeYouRomania.Api/staging'
