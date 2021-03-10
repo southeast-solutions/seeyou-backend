@@ -2,7 +2,7 @@ version: 0.2
 
 env:
   variables: 
-    DOTNET_CORE_RUNTIME: 5.0
+    DOTNET_CORE_RUNTIME: 3.1
 
 phases:
   install: 
