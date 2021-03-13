@@ -34,7 +34,7 @@ namespace DataAccess
             return collection.AsQueryable();
         }
 
-        public async Task<T> FindById(ObjectId id)
+        public async Task<T> FindById(string id)
         {
             var result =  await collection.FindAsync(t => t.Id.Equals(id));
 

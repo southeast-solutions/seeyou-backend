@@ -30,5 +30,11 @@ namespace Api.Controllers
 
             return NoContent();
         }
+
+        [HttpGet("{userId}")]
+        public IActionResult GetById(string userId)
+        {
+            return Ok(userService.GetById(userId));
+        }
     }
 }

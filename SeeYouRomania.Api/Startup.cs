@@ -42,7 +42,8 @@ namespace Api
             services.AddTransient(typeof(IMongoDbRepository<>), typeof(MongoDbRepository<>));
             services.AddSingleton(typeof(IExperienceService), typeof(ExperienceService));
             services.AddSingleton(typeof(IUserService), typeof(UserService));
-            
+            services.AddRouting(options => options.LowercaseUrls = true);
+
             services.SetupAwsServices(Configuration);
             services.AddAuthentication(x =>
                 {

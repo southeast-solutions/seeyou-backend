@@ -6,6 +6,7 @@ using Domain;
 using Domain.Contracts;
 using Domain.DTO;
 using Domain.Enums;
+using Domain.Response.Auth;
 using Domain.Request.UserOperations;
 using MongoDB.Bson;
 
@@ -36,9 +37,14 @@ namespace Business.Services
 
         public async Task Verify(VerifyUserRequest request)
         {
-            var user = await userRepository.FindById(new ObjectId(request.Id));
+            var user = await userRepository.FindById(request.Id);
             user.Verified = true;
             await userRepository.Update(user);
+        }
+
+        public async Task<GetProfileInfoResponse> GetById(string userId)
+        {
+            return new GetProfileInfoResponse { User = await userRepository.FindById(userId) };
         }
 
         private bool IsUserValid(UserEntity user)

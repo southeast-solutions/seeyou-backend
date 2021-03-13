@@ -34,7 +34,7 @@ namespace Business.Services
 
         public async Task Delete(DeleteExperienceRequest deleteExperienceRequest)
         {
-            await experienceRepository.Delete(experience => experience.Id == MongoDB.Bson.ObjectId.Parse(deleteExperienceRequest.Id));
+            await experienceRepository.Delete(experience => experience.Id == deleteExperienceRequest.Id);
         }
     }
 }
