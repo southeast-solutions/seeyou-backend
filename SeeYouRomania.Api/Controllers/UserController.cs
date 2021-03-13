@@ -32,9 +32,10 @@ namespace Api.Controllers
         }
 
         [HttpGet("{userId}")]
-        public IActionResult GetById(string userId)
+        public async Task<IActionResult> GetById(string userId)
         {
-            return Ok(userService.GetById(userId));
+            var user = await userService.GetById(userId);
+            return Ok(user);
         }
     }
 }

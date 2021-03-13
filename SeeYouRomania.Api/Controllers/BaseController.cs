@@ -24,5 +24,10 @@ namespace Api.Controllers
 
             return identity.FindFirst(ClaimNames.UserType)?.Value == nameof(UserTypes.Admin);
         }
+
+        protected IActionResult BadData()
+        {
+            return StatusCode(400);
+        }
     }
 }

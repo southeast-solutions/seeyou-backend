@@ -24,7 +24,16 @@ namespace Api.Controllers
 
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] UserEntityDto userEntity)
-        {               
+        {
+            try
+            {
+                await userService.Add(userEntity);
+            }
+            catch (Exception)
+            {
+                return BadData();
+            }
+            
             var registerRequest = new RegisterRequest()
             {
                 Email = userEntity.Email,
@@ -36,22 +45,6 @@ namespace Api.Controllers
             if (!registerResponse.Success)
             {
                 return Ok(registerResponse);
-            }
-
-            try
-            {
-                await userService.Add(userEntity);
-            }
-            catch (Exception)
-            {
-                var deleteRequest = new DeleteAuthUserRequest()
-                {
-                    Id = registerResponse.Id
-                };
-
-                await authService.DeleteUser(deleteRequest);
-
-                return StatusCode(500);
             }
 
             return Created(nameof(Register), userEntity);

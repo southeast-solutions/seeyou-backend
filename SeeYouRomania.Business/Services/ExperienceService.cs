@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Domain;
 using Domain.Contracts;
-using Domain.DTO;
 using Domain.Request.Experiences;
 
 namespace Business.Services

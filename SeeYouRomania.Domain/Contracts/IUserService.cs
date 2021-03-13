@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Domain.DTO;
-using Domain.Response.Auth;
 using Domain.Request.UserOperations;
 
 namespace Domain.Contracts
@@ -11,6 +10,6 @@ namespace Domain.Contracts
         List<UserEntity> GetAll();
         Task Add(UserEntityDto entityDto);
         Task Verify(VerifyUserRequest request);
-        Task<GetProfileInfoResponse> GetById(string userId);
+        Task<UserEntity> GetById(string userId);
     }
 }
