@@ -50,6 +50,7 @@ namespace Business.Services
         {
             return await userRepository.FindById(userId);
         }
+        
         public async Task Update(string userId, UpdateUserRequest request)
         {
             var user = request.User.ToModel();

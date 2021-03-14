@@ -34,7 +34,7 @@ namespace Api.Controllers
         [HttpGet("{userId}")]
         public async Task<IActionResult> GetById(string userId)
         {
-            var user = await userService.GetById(userId);
+            var user = await userService.GetByCognitoId(userId);
 
             return Ok(user);
         }
