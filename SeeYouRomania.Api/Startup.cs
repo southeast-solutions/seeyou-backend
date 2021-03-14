@@ -31,7 +31,7 @@ namespace Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson();
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "SeeYouRomania.Api", Version = "v1"}); });
             services.AddLogging();
             
@@ -43,6 +43,7 @@ namespace Api
             services.AddSingleton(typeof(IExperienceService), typeof(ExperienceService));
             services.AddSingleton(typeof(IUserService), typeof(UserService));
             services.AddRouting(options => options.LowercaseUrls = true);
+            services.AddCors();
 
             services.SetupAwsServices(Configuration);
             services.AddAuthentication(x =>
@@ -85,6 +86,9 @@ namespace Api
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SeeYouRomania.Api v1"));
             }
 
+            app.UseCors(
+                options => options.WithOrigins("*").AllowAnyMethod()
+            );
             app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseRouting();

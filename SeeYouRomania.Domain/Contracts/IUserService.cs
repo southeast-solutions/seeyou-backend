@@ -11,5 +11,6 @@ namespace Domain.Contracts
         Task Add(UserEntityDto entityDto);
         Task Verify(VerifyUserRequest request);
         Task<UserEntity> GetById(string userId);
+        Task Update(string userId, UpdateUserRequest request);
     }
 }

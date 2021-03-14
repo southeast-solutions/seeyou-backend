@@ -35,7 +35,16 @@ namespace Api.Controllers
         public async Task<IActionResult> GetById(string userId)
         {
             var user = await userService.GetById(userId);
+
             return Ok(user);
+        }
+
+        [HttpPost("{userId}")]
+        public async Task<IActionResult> Update(string userId, [FromBody] UpdateUserRequest request)
+        {
+            await userService.Update(userId, request);
+
+            return Ok();
         }
     }
 }
