@@ -18,7 +18,12 @@
 
     <ItemGroup>
       <ProjectReference Include="..\SeeYouRomania.Business\SeeYouRomania.Business.csproj" />
+      <ProjectReference Include="..\SeeYouRomania.DataAccess\SeeYouRomania.DataAccess.csproj" />
       <ProjectReference Include="..\SeeYouRomania.Domain\SeeYouRomania.Domain.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Business" />
     </ItemGroup>
 
 </Project>

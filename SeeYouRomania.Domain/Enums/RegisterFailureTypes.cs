@@ -1,9 +1,9 @@
 ﻿namespace Domain.Enums
 {
-    public enum RegisterFailureTypes
+    public static class RegisterFailureTypes
     {
-        InvalidPassword,
-        EmailAlreadyTaken,
-        Other
+        public static string InvalidPassword => "INVALID_PASSWORD";
+        public static string EmailAddressTaken => "EMAIL_ADDRESS_TAKEN";
+        public static string Other => "OTHER";
     }
 }

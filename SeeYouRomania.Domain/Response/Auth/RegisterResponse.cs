@@ -1,11 +1,10 @@
-﻿using Domain.Enums;
+﻿using Domain.Response.Abstract;
 
-namespace Domain.Response
+namespace Domain.Response.Auth
 {
     public class RegisterResponse : FailableTaskResponse
     {
         public string CognitoUserEntityId { get; set; }
-        public RegisterFailureTypes FailureType { get; set; }
-        public string Id { get; set; }
+        public string FailureType { get; set; }
     }
 }

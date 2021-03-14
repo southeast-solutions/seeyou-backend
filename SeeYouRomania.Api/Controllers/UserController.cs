@@ -31,18 +31,26 @@ namespace Api.Controllers
             return NoContent();
         }
 
-        [HttpGet("{userId}")]
-        public async Task<IActionResult> GetById(string userId)
+        [HttpGet("userData")]
+        public async Task<IActionResult> GetUserData()
         {
-            var user = await userService.GetByCognitoId(userId);
+            var user = await userService.GetById(GetId());
 
             return Ok(user);
         }
 
-        [HttpPost("{userId}")]
-        public async Task<IActionResult> Update(string userId, [FromBody] UpdateUserRequest request)
+        [HttpGet("{userId}")]
+        public async Task<IActionResult> GetById(string userId)
         {
-            await userService.Update(userId, request);
+            var user = await userService.GetById(userId);
+
+            return Ok(user);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Update([FromBody] UpdateUserRequest request)
+        {
+            await userService.Update(GetId(), request);
 
             return Ok();
         }

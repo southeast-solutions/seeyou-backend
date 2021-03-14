@@ -1,4 +1,4 @@
-﻿namespace Domain.Response
+﻿namespace Domain.Request.Auth
 {
     public class ResetPasswordRequest
     {

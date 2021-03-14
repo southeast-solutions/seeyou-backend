@@ -1,4 +1,4 @@
-﻿namespace Domain.Request
+﻿namespace Domain.Request.Auth
 {
     public class VerifyRegisterRequest
     {

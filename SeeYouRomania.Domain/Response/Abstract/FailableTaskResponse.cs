@@ -1,4 +1,4 @@
-﻿namespace Domain.Response
+﻿namespace Domain.Response.Abstract
 {
     public abstract class FailableTaskResponse
     {

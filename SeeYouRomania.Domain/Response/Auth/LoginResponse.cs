@@ -1,11 +1,10 @@
-﻿using Domain.Enums;
+﻿using Domain.Response.Abstract;
 
-namespace Domain.Response
+namespace Domain.Response.Auth
 {
     public class LoginResponse : FailableTaskResponse
     {
-        public string UserType { get; set; }
         public string Token { get; set; }
-        public LoginFailureTypes FailureType { get; set; }
+        public string FailureType { get; set; }
     }
 }

@@ -1,7 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
+﻿using System.Security.Claims;
+using Amazon.SecurityToken.Model;
 using Domain.Enums;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,25 +7,35 @@ namespace Api.Controllers
 {
     public abstract class BaseController : ControllerBase
     {
-        private ClaimsIdentity GetIdentity()
+        protected string GetId()
         {
-            return HttpContext.User.Identity as ClaimsIdentity;
+            return GetClaim(ClaimNames.UserId);
+        }
+        
+        protected string GetUserType()
+        {
+            return GetClaim(ClaimNames.UserType);
         }
         
         protected bool IsAdmin()
         {
-            var identity = GetIdentity();
-            if (identity == null)
-            {
-                return false;
-            }
-
-            return identity.FindFirst(ClaimNames.UserType)?.Value == nameof(UserTypes.Admin);
+            return GetUserType() == nameof(UserTypes.Admin);
+        }
+        private ClaimsIdentity GetIdentity()
+        {
+            return HttpContext.User.Identity as ClaimsIdentity;
         }
 
-        protected IActionResult BadData()
+        private string GetClaim(string claim)
         {
-            return StatusCode(400);
+            var identity = GetIdentity();
+
+            if (identity == null)
+            {
+                throw new InvalidIdentityTokenException("No token was passed as input");
+            }
+
+            return identity.FindFirst(claim).Value;
         }
     }
 }

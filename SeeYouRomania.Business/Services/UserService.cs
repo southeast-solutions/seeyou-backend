@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Business.Validators;
 using Domain;
 using Domain.Contracts;
 using Domain.DTO;
 using Domain.Enums;
 using Domain.Exceptions;
+using Domain.Models;
 using Domain.Request.UserOperations;
 
 namespace Business.Services
@@ -25,18 +27,16 @@ namespace Business.Services
             return userRepository.AsQueryable().ToList();
         }
 
-        public async Task Add(UserEntityDto entityDto, string cognitoEntityId)
+        public async Task<string> Add(UserEntityDto entityDto)
         {
             var user = entityDto.ToModel();
-            user.CognitoUserEntityId = cognitoEntityId;
             if (IsUserValid(user))
             {
                 await userRepository.Insert(user);
+                return user.Id;
             }
-            else
-            {
-                throw new InvalidInputException();
-            }
+            
+            throw new InvalidInputException();
         }
 
         public async Task Verify(VerifyUserRequest request)
@@ -59,58 +59,15 @@ namespace Business.Services
             await userRepository.Update(user);
         }
 
-        public async Task<UserEntity> GetByCognitoId(string cognitoUserId)
-        {
-            return (await userRepository.FilterBy(u => u.CognitoUserEntityId == cognitoUserId)).First();
-        }
-
         private bool IsUserValid(UserEntity user)
         {
             if (!Enum.IsDefined(typeof(UserTypes), user.UserType))
             {
                 return false;
             }
-            switch (user.UserType)
-            {
-                case UserTypes.Promoter:
-                {
-                    return IsValidPromoterEntity((PromoterEntity)user);
-                }
-                case UserTypes.ContentCreator:
-                {
-                    return IsValidContentCreatorEntity((ContentCreatorEntity)user);
-                }
-                case UserTypes.Concierge:
-                {
-                    return IsValidConciergeEntity((ConciergeEntity)user);
-                }
-                case UserTypes.Tour:
-                {
-                    return IsValidTourEntity((TourEntity)user);
-                }
-                default:
-                    return false;
-            }
-        }
 
-        private bool IsValidPromoterEntity(PromoterEntity promoter)
-        {
-            return true;
-        }
-
-        private bool IsValidContentCreatorEntity(ContentCreatorEntity contentCreator)
-        {
-            return true;
-        }
-
-        private bool IsValidConciergeEntity(ConciergeEntity concierge)
-        {
-            return true;
-        }
-
-        private bool IsValidTourEntity(TourEntity tour)
-        {
-            return true;
+            var userValidator = UserValidatorFactory.GetValidator(user.UserType);
+            return userValidator.IsValid(user);
         }
     }
 }

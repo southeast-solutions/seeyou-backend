@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Domain;
 using Domain.Attributes;
 using Domain.Contracts;
-using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace DataAccess
@@ -20,8 +19,8 @@ namespace DataAccess
             var database = new MongoClient(settings.ConnectionString).GetDatabase(settings.DatabaseName);
             collection = database.GetCollection<T>(GetCollectionName(typeof(T)));
         }
-        
-        protected string GetCollectionName(Type documentType)
+
+        private string GetCollectionName(Type documentType)
         {
             return ((BsonCollectionAttribute) documentType.GetCustomAttributes(
                     typeof(BsonCollectionAttribute),

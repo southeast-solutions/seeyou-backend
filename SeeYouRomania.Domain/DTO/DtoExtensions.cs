@@ -1,15 +1,11 @@
 ﻿using Domain.Enums;
+using Domain.Exceptions;
 using Domain.Models;
 
 namespace Domain.DTO
 {
     public static class DtoExtensions
     {
-        public static T ToSpecificModel<T>(this UserEntity entity) where T : UserEntity
-        {
-            return (T)entity;
-        }
-        
         public static UserEntity ToModel(this UserEntityDto dto)
         {
             if (dto.UserType == UserTypes.Promoter.ToString())
@@ -81,10 +77,7 @@ namespace Domain.DTO
                 };
             }
 
-            return new UnknownUserEntity()
-            {
-                UserType = UserTypes.Unknown
-            };
+            throw new InvalidInputException();
         }
     }
 }

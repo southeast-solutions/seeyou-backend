@@ -1,9 +1,9 @@
 ﻿namespace Domain.Enums
 {
-    public enum LoginFailureTypes
+    public static class LoginFailureTypes
     {
-        EmailNotFound,
-        InvalidCredentials,
-        Other
+        public static string EmailNotFound => "EMAIL_NOT_FOUND";
+        public static string InvalidCredentials => "INVALID_CREDENTIALS";
+        public static string Other => "OTHER";
     }
 }

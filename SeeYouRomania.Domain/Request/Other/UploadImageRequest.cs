@@ -4,6 +4,6 @@ namespace Domain.Request.Other
 {
     public class UploadImageRequest
     {
-        public IFormFile DataFile;
+        public IFormFile DataFile { get; set; }
     }
 }

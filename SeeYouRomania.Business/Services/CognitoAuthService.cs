@@ -4,13 +4,13 @@ using Amazon;
 using Amazon.CognitoIdentityProvider;
 using Amazon.CognitoIdentityProvider.Model;
 using Amazon.Extensions.CognitoAuthentication;
+using Domain.AWS;
 using Domain.Contracts;
 using Domain.Enums;
-using Domain.Request;
 using Domain.Request.Auth;
-using Domain.Response;
+using Domain.Response.Auth;
 
-namespace Domain.AWS
+namespace Business.Services
 {
     public class CognitoAuthService : IAuthService
     {
@@ -34,18 +34,25 @@ namespace Domain.AWS
             
             var emailAttribute = new AttributeType
             {
-                Name = "email",
+                Name = ClaimNames.Email,
                 Value = request.Email
             };
 
             var userType = new AttributeType()
             {
-                Name = "custom:custom:userType",
+                Name = ClaimNames.UserType,
                 Value = request.UserType
+            };
+
+            var userId = new AttributeType()
+            {
+                Name = ClaimNames.UserId,
+                Value = request.UserId
             };
             
             registerRequest.UserAttributes.Add(emailAttribute);
             registerRequest.UserAttributes.Add(userType);
+            registerRequest.UserAttributes.Add(userId);
             
             RegisterResponse registerResponse = new RegisterResponse()
             {
@@ -54,14 +61,12 @@ namespace Domain.AWS
 
             try
             {
-                var res = await client.SignUpAsync(registerRequest);
+                await client.SignUpAsync(registerRequest);
                 registerResponse.Success = true;
-                registerResponse.Id = res.UserSub;
-                registerResponse.CognitoUserEntityId = res.UserSub;
             }
             catch (UsernameExistsException)
             {
-                registerResponse.FailureType = RegisterFailureTypes.EmailAlreadyTaken;
+                registerResponse.FailureType = RegisterFailureTypes.EmailAddressTaken;
             }
             catch (InvalidPasswordException)
             {
@@ -95,6 +100,9 @@ namespace Domain.AWS
                 AuthFlowResponse authResponse = await user.StartWithSrpAuthAsync(authRequest).ConfigureAwait(false);
                 loginResponse.Token = authResponse.AuthenticationResult.IdToken;
                 loginResponse.Success = true;
+
+                GetUserRequest getUserRequest = new GetUserRequest();
+                getUserRequest.AccessToken = authResponse.AuthenticationResult.AccessToken;
             }
             catch (UserNotFoundException)
             {
@@ -188,17 +196,6 @@ namespace Domain.AWS
             {
                 Success = success
             };
-        }
-
-        public async Task DeleteUser(DeleteAuthUserRequest request)
-        {
-            var deleteReq = new AdminDeleteUserRequest()
-            {
-                UserPoolId = awsEnvironment.UserPoolId,
-                Username = request.Id
-            };
-
-            await client.AdminDeleteUserAsync(deleteReq);
         }
     }
 }

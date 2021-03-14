@@ -4,8 +4,8 @@ using Amazon.CognitoIdentityProvider.Model;
 using Domain.Contracts;
 using Domain.DTO;
 using Domain.Enums;
-using Domain.Request;
-using Domain.Response;
+using Domain.Request.Auth;
+using Domain.Response.Auth;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
@@ -27,19 +27,20 @@ namespace Api.Controllers
         public async Task<IActionResult> Register([FromBody] UserEntityDto userEntity)
         {
             var registerResponse = new RegisterResponse();
-
+            
             try
             {
+                var userId = await userService.Add(userEntity);
+
                 var registerRequest = new RegisterRequest()
                 {
                     Email = userEntity.Email,
                     Password = userEntity.Password,
-                    UserType = userEntity.UserType
+                    UserType = userEntity.UserType,
+                    UserId = userId
                 };
 
                 registerResponse = await authService.Register(registerRequest);
-
-                await userService.Add(userEntity, registerResponse.CognitoUserEntityId);
             }
             catch (InvalidPasswordException)
             {
@@ -49,7 +50,7 @@ namespace Api.Controllers
             catch (UsernameExistsException)
             {
                 registerResponse.Success = false;
-                registerResponse.FailureType = RegisterFailureTypes.EmailAlreadyTaken;
+                registerResponse.FailureType = RegisterFailureTypes.EmailAddressTaken;
             }
             catch (Exception)
             {
@@ -59,7 +60,7 @@ namespace Api.Controllers
             
             if (!registerResponse.Success)
             {
-                return Ok(registerResponse);
+                return BadRequest(registerResponse);
             }
 
             return Created(nameof(Register), registerResponse);
