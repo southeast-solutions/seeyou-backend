@@ -25,9 +25,10 @@ namespace Business.Services
             return userRepository.AsQueryable().ToList();
         }
 
-        public async Task Add(UserEntityDto entityDto)
+        public async Task Add(UserEntityDto entityDto, string cognitoEntityId)
         {
             var user = entityDto.ToModel();
+            user.CognitoUserEntityId = cognitoEntityId;
             if (IsUserValid(user))
             {
                 await userRepository.Insert(user);
@@ -55,6 +56,11 @@ namespace Business.Services
             user.Id = userId;
 
             await userRepository.Update(user);
+        }
+
+        public async Task<UserEntity> GetByCognitoId(string cognitoUserId)
+        {
+            return (await userRepository.FilterBy(u => u.CognitoUserEntityId == cognitoUserId)).First();
         }
 
         private bool IsUserValid(UserEntity user)

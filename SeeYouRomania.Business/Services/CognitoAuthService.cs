@@ -57,6 +57,7 @@ namespace Domain.AWS
                 var res = await client.SignUpAsync(registerRequest);
                 registerResponse.Success = true;
                 registerResponse.Id = res.UserSub;
+                registerResponse.CognitoUserEntityId = res.UserSub;
             }
             catch (UsernameExistsException)
             {

@@ -1,9 +1,10 @@
 using System;
 using System.Threading.Tasks;
+using Amazon.CognitoIdentityProvider.Model;
 using Domain.Contracts;
 using Domain.DTO;
+using Domain.Enums;
 using Domain.Request;
-using Domain.Request.Auth;
 using Domain.Response;
 using Microsoft.AspNetCore.Mvc;
 
@@ -25,29 +26,43 @@ namespace Api.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] UserEntityDto userEntity)
         {
+            var registerResponse = new RegisterResponse();
+
             try
             {
-                await userService.Add(userEntity);
+                var registerRequest = new RegisterRequest()
+                {
+                    Email = userEntity.Email,
+                    Password = userEntity.Password,
+                    UserType = userEntity.UserType
+                };
+
+                registerResponse = await authService.Register(registerRequest);
+
+                await userService.Add(userEntity, registerResponse.CognitoUserEntityId);
+            }
+            catch (InvalidPasswordException)
+            {
+                registerResponse.Success = false;
+                registerResponse.FailureType = RegisterFailureTypes.InvalidPassword;
+            }
+            catch (UsernameExistsException)
+            {
+                registerResponse.Success = false;
+                registerResponse.FailureType = RegisterFailureTypes.EmailAlreadyTaken;
             }
             catch (Exception)
             {
-                return BadData();
+                registerResponse.Success = false;
+                registerResponse.FailureType = RegisterFailureTypes.Other;
             }
             
-            var registerRequest = new RegisterRequest()
-            {
-                Email = userEntity.Email,
-                Password = userEntity.Password,
-                UserType = userEntity.UserType
-            };
-            
-            var registerResponse = await authService.Register(registerRequest);
             if (!registerResponse.Success)
             {
                 return Ok(registerResponse);
             }
 
-            return Created(nameof(Register), userEntity);
+            return Created(nameof(Register), registerResponse);
         }
         
         [HttpPost("login")]

@@ -4,6 +4,7 @@ namespace Domain.Response
 {
     public class LoginResponse : FailableTaskResponse
     {
+        public string UserType { get; set; }
         public string Token { get; set; }
         public LoginFailureTypes FailureType { get; set; }
     }
