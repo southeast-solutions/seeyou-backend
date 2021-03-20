@@ -31,8 +31,8 @@ namespace Api.Controllers
             return NoContent();
         }
 
-        [HttpGet("userData")]
-        public async Task<IActionResult> GetUserData()
+        [HttpGet("profile")]
+        public async Task<IActionResult> GetProfileData()
         {
             var user = await userService.GetById(GetId());
 

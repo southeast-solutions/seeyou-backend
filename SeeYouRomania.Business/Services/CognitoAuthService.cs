@@ -72,7 +72,7 @@ namespace Business.Services
             {
                 registerResponse.FailureType = RegisterFailureTypes.InvalidPassword;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 registerResponse.FailureType = RegisterFailureTypes.Other;
             }

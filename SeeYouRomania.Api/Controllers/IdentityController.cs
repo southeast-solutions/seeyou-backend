@@ -6,6 +6,7 @@ using Domain.DTO;
 using Domain.Enums;
 using Domain.Request.Auth;
 using Domain.Response.Auth;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
@@ -21,6 +22,13 @@ namespace Api.Controllers
         {
             this.userService = userService;
             this.authService = authService;
+        }
+
+        [HttpGet]
+        [Authorize]
+        public IActionResult IsTokenValid()
+        {
+            return Ok();
         }
 
         [HttpPost("register")]
