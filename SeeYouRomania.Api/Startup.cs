@@ -43,12 +43,7 @@ namespace Api
             services.AddSingleton(typeof(IExperienceService), typeof(ExperienceService));
             services.AddSingleton(typeof(IUserService), typeof(UserService));
             services.AddRouting(options => options.LowercaseUrls = true);
-            services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
-            {
-                builder.AllowAnyOrigin()
-                       .AllowAnyMethod()
-                       .AllowAnyHeader();
-            }));
+            services.AddCors();
 
             services.SetupAwsServices(Configuration);
             services.AddAuthentication(x =>
@@ -86,7 +81,6 @@ namespace Api
         {
             if (env.IsDevelopment())
             {
-                app.UseCors("MyPolicy");
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SeeYouRomania.Api v1"));
