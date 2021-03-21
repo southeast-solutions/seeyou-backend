@@ -1,7 +1,5 @@
 ﻿using Domain.Attributes;
 using Domain.Models;
-using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
 using System;
 using System.Collections.Generic;
 
@@ -20,7 +18,7 @@ namespace Domain
         public int NumberOfTourists { get; set; }
         public TourBusinessEntity Guide { get; set; }
         public string AvailableLanguages { get; set; }
-        public string Highlights { get; set; }
+        public IEnumerable<string> Highlights { get; set; }
         public string Description { get; set; }
         public IEnumerable<string> IncludedServices { get; set; }
         public IEnumerable<string> NotIncludedServices { get; set; }

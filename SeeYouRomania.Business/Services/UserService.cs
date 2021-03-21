@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Business.Validators;
-using Domain;
 using Domain.Contracts;
 using Domain.DTO;
 using Domain.Enums;
@@ -35,7 +34,7 @@ namespace Business.Services
                 await userRepository.Insert(user);
                 return user.Id;
             }
-            
+
             throw new InvalidInputException();
         }
 

@@ -60,7 +60,7 @@ namespace Domain.DTO
                     UserType = UserTypes.Tour,
                     TourBusinessEntity = new TourBusinessEntity()
                     {
-                        Adress = dto.TourBusinessEntity.Adress,
+                        Address = dto.TourBusinessEntity.Address,
                         BusinessName = dto.TourBusinessEntity.BusinessName,
                         Cui = dto.TourBusinessEntity.Cui,
                         SocialLinks = dto.TourBusinessEntity.SocialLinks,

@@ -1,6 +1,4 @@
-﻿using MongoDB.Bson;
-
-namespace Domain.Request.Experiences
+﻿namespace Domain.Request.Experiences
 {
     public class DeleteExperienceRequest
     {
