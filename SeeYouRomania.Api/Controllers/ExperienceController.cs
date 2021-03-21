@@ -18,17 +18,43 @@ namespace Api.Controllers
             this.experienceService = experienceService;
         }
 
-        [HttpPost("getExperiences")]
-        public async Task<IActionResult> GetExperiences([FromBody] GetExperiencesRequest getExperiencesRequest)
+        [HttpGet("myExperiences")]
+        public async Task<IActionResult> GetMyExperiences()
         {
-            var experiences = await experienceService.GetAllAsync(getExperiencesRequest);
+            var req = new GetExperiencesByUserIdRequest()
+            {
+                UserId = GetId()
+            };
+
+            var res = await experienceService.GetByUserId(req);
+
+            return Ok(res);
+        }
+
+        [HttpGet("{userId}")]
+        public async Task<IActionResult> GetExperiencesById(string userId)
+        {
+            var req = new GetExperiencesByUserIdRequest()
+            {
+                UserId = userId
+            };
+
+            var res = await experienceService.GetByUserId(req);
+            return Ok(res);
+        }
+
+        [HttpPost("getByLocation")]
+        public async Task<IActionResult> GetExperiences([FromBody] GetExperiencesByLocationRequest getExperiencesByLocationRequest)
+        {
+            var experiences = await experienceService.GetByLocation(getExperiencesByLocationRequest);
             return Ok(experiences);
         }
 
         [HttpPost("addExperience")]
         public async Task<IActionResult> AddExperience([FromBody] AddExperienceRequest addExperienceRequest)
         {
-            await experienceService.Add(addExperienceRequest);
+            var id = GetId();
+            await experienceService.Add(addExperienceRequest, id);
 
             return Created(nameof(AddExperience), addExperienceRequest);
         }

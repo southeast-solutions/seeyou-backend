@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Domain;
 using Domain.Contracts;
 using Domain.Request.Experiences;
+using Domain.Response.Experiences;
 
 namespace Business.Services
 {
@@ -15,14 +15,32 @@ namespace Business.Services
             this.experienceRepository = experienceRepository;
         }
 
-        public async Task<IEnumerable<ExperienceEntity>> GetAllAsync(GetExperiencesRequest getExperiencesRequest)
+        public async Task<GetExperiencesByUserIdResponse> GetByUserId(GetExperiencesByUserIdRequest request)
         {
-            return await experienceRepository.FilterBy(experience => experience.Country == getExperiencesRequest.Country);
+            var experiences = await experienceRepository.FilterBy(experience => experience.UserId == request.UserId);
+
+            return new GetExperiencesByUserIdResponse()
+            {
+                Experiences = experiences
+            };
         }
-        
-        public async Task Add(AddExperienceRequest addExperienceRequest)
+
+        public async Task<GetExperiencesByLocationResponse> GetByLocation(GetExperiencesByLocationRequest getExperiencesByLocationRequest)
         {
-            await experienceRepository.Insert(addExperienceRequest.Experience);
+            var experiences = await experienceRepository.FilterBy(experience => experience.Country == getExperiencesByLocationRequest.Country);
+
+            return new GetExperiencesByLocationResponse()
+            {
+                Experiences = experiences
+            };
+        }
+
+        public async Task Add(AddExperienceRequest addExperienceRequest, string id)
+        {
+            var experience = addExperienceRequest.Experience;
+            experience.UserId = id;
+            
+            await experienceRepository.Insert(experience);
         }
 
         public async Task Update(UpdateExperienceRequest updateExperienceRequest)

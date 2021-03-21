@@ -1,13 +1,14 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Domain.Request.Experiences;
+using Domain.Response.Experiences;
 
 namespace Domain.Contracts
 {
     public interface IExperienceService
     {
-        Task<IEnumerable<ExperienceEntity>> GetAllAsync(GetExperiencesRequest getExperiencesRequest);
-        Task Add(AddExperienceRequest addExperienceRequest);
+        Task<GetExperiencesByUserIdResponse> GetByUserId(GetExperiencesByUserIdRequest request);
+        Task<GetExperiencesByLocationResponse> GetByLocation(GetExperiencesByLocationRequest getExperiencesByLocationRequest);
+        Task Add(AddExperienceRequest addExperienceRequest, string id);
         Task Update(UpdateExperienceRequest updateExperienceRequest);
         Task Delete(DeleteExperienceRequest deleteExperienceRequest);
     }

@@ -31,7 +31,10 @@ namespace Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers().AddNewtonsoftJson();
+            services.AddControllers()
+                .AddNewtonsoftJson()
+                .AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null);
+            
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "SeeYouRomania.Api", Version = "v1"}); });
             services.AddLogging();
             
@@ -42,7 +45,7 @@ namespace Api
             services.AddTransient(typeof(IMongoDbRepository<>), typeof(MongoDbRepository<>));
             services.AddSingleton(typeof(IExperienceService), typeof(ExperienceService));
             services.AddSingleton(typeof(IUserService), typeof(UserService));
-            services.AddRouting(options => options.LowercaseUrls = true);
+            services.AddRouting();
             services.AddCors();
 
             services.SetupAwsServices(Configuration);

@@ -8,6 +8,7 @@ namespace Domain
     [BsonCollection("experiences")]
     public class ExperienceEntity : Document
     {
+        public string UserId { get; set; }
         public string Type { get; set; }
         public string Name { get; set; }
         public string Country { get; set; }
