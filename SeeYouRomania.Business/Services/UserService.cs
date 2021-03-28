@@ -45,6 +45,13 @@ namespace Business.Services
             await userRepository.Update(user);
         }
 
+        public async Task Unverify(UnverifyUserRequest request)
+        {
+            var user = await userRepository.FindById(request.Id);
+            user.Verified = false;
+            await userRepository.Update(user);
+        }
+
         public async Task<UserEntity> GetById(string userId)
         {
             return await userRepository.FindById(userId);

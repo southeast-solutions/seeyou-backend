@@ -31,6 +31,19 @@ namespace Api.Controllers
             return NoContent();
         }
 
+        [HttpPost("unverify")]
+        public async Task<IActionResult> UnverifyUser([FromBody] UnverifyUserRequest request)
+        {
+            if (!IsAdmin())
+            {
+                return Unauthorized();
+            }
+
+            await userService.Unverify(request);
+
+            return NoContent();
+        }
+
         [HttpGet("profile")]
         public async Task<IActionResult> GetProfileData()
         {
@@ -43,6 +56,19 @@ namespace Api.Controllers
         public async Task<IActionResult> GetById(string userId)
         {
             var user = await userService.GetById(userId);
+
+            return Ok(user);
+        }
+
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            if (!IsAdmin())
+            {
+                return Unauthorized();
+            }
+
+            var user = userService.GetAll();
 
             return Ok(user);
         }
