@@ -52,7 +52,21 @@ namespace Domain.DTO
                     SocialLinks = dto.SocialLinks
                 };
             }
-            
+
+            if (dto.UserType == UserTypes.Admin.ToString())
+            {
+                return new AdminEntity()
+                {
+                    UserType = UserTypes.Admin,
+                    City = dto.City,
+                    Country = dto.Country,
+                    FirstName = dto.FirstName,
+                    LastName = dto.LastName,
+                    ForeignLanguages = dto.ForeignLanguages,
+                    SocialLinks = dto.SocialLinks
+                };
+            }
+
             if (dto.UserType == UserTypes.Tour.ToString())
             {
                 return new TourEntity()

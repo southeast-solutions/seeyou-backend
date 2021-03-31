@@ -5,7 +5,7 @@ using MongoDB.Bson.Serialization.Attributes;
 namespace Domain.Models
 {
     [BsonCollection("users")]
-    [BsonKnownTypes(typeof(ConciergeEntity), typeof(ContentCreatorEntity), typeof(PromoterEntity), typeof(TourEntity))]
+    [BsonKnownTypes(typeof(ConciergeEntity), typeof(ContentCreatorEntity), typeof(PromoterEntity), typeof(TourEntity), typeof(AdminEntity))]
     public abstract class UserEntity : Document
     {
         public UserTypes UserType { get; set; }
