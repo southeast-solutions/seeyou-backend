@@ -38,17 +38,10 @@ namespace Business.Services
             throw new InvalidInputException();
         }
 
-        public async Task Verify(VerifyUserRequest request)
+        public async Task UpdateVerifiedStatus(VerifyUserRequest request)
         {
             var user = await userRepository.FindById(request.Id);
-            user.Verified = true;
-            await userRepository.Update(user);
-        }
-
-        public async Task Unverify(UnverifyUserRequest request)
-        {
-            var user = await userRepository.FindById(request.Id);
-            user.Verified = false;
+            user.Verified = request.VerifiedValue;
             await userRepository.Update(user);
         }
 

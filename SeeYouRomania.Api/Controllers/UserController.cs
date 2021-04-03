@@ -18,28 +18,15 @@ namespace Api.Controllers
             this.userService = userService;
         }
 
-        [HttpPost("verify")]
-        public async Task<IActionResult> VerifyUser([FromBody] VerifyUserRequest request)
+        [HttpPost("updateVerifiedStatus")]
+        public async Task<IActionResult> UpdateVerifiedStatus([FromBody] VerifyUserRequest request)
         {
             if (!IsAdmin())
             {
                 return Unauthorized();
             }
             
-            await userService.Verify(request);
-
-            return NoContent();
-        }
-
-        [HttpPost("unverify")]
-        public async Task<IActionResult> UnverifyUser([FromBody] UnverifyUserRequest request)
-        {
-            if (!IsAdmin())
-            {
-                return Unauthorized();
-            }
-
-            await userService.Unverify(request);
+            await userService.UpdateVerifiedStatus(request);
 
             return NoContent();
         }

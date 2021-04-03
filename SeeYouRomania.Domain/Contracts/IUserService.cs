@@ -10,8 +10,7 @@ namespace Domain.Contracts
     {
         List<UserEntity> GetAll();
         Task<string> Add(UserEntityDto entityDto);
-        Task Verify(VerifyUserRequest request);
-        Task Unverify(UnverifyUserRequest request);
+        Task UpdateVerifiedStatus(VerifyUserRequest request);
         Task<UserEntity> GetById(string userId);
         Task Update(string userId, UpdateUserRequest request);
     }
