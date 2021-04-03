@@ -21,7 +21,8 @@ namespace Domain.DTO
                     LastName = dto.LastName,
                     ForeignLanguages = dto.ForeignLanguages,
                     IsStudent = dto.IsStudent,
-                    SocialLinks = dto.SocialLinks
+                    SocialLinks = dto.SocialLinks,
+                    ProfilePictureUrl = dto.ProfilePictureUrl
                 };
             }
             
@@ -35,7 +36,8 @@ namespace Domain.DTO
                     FirstName = dto.FirstName,
                     LastName = dto.LastName,
                     ForeignLanguages = dto.ForeignLanguages,
-                    SocialLinks = dto.SocialLinks
+                    SocialLinks = dto.SocialLinks,
+                    ProfilePictureUrl = dto.ProfilePictureUrl
                 };
             }
             
@@ -49,7 +51,8 @@ namespace Domain.DTO
                     FirstName = dto.FirstName,
                     LastName = dto.LastName,
                     ForeignLanguages = dto.ForeignLanguages,
-                    SocialLinks = dto.SocialLinks
+                    SocialLinks = dto.SocialLinks,
+                    ProfilePictureUrl = dto.ProfilePictureUrl
                 };
             }
 
@@ -63,7 +66,8 @@ namespace Domain.DTO
                     FirstName = dto.FirstName,
                     LastName = dto.LastName,
                     ForeignLanguages = dto.ForeignLanguages,
-                    SocialLinks = dto.SocialLinks
+                    SocialLinks = dto.SocialLinks,
+                    ProfilePictureUrl = dto.ProfilePictureUrl
                 };
             }
 
@@ -87,7 +91,8 @@ namespace Domain.DTO
                         LastName = dto.TourOperatorEntity.LastName,
                         ForeignLanguages = dto.TourOperatorEntity.ForeignLanguages,
                         SocialLinks = dto.TourOperatorEntity.SocialLinks
-                    }
+                    },
+                    ProfilePictureUrl = dto.ProfilePictureUrl
                 };
             }
 

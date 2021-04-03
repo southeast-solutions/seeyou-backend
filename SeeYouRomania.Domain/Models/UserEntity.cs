@@ -10,5 +10,6 @@ namespace Domain.Models
     {
         public UserTypes UserType { get; set; }
         public bool Verified { get; set; }
+        public string ProfilePictureUrl { get; set; }
     }
 }

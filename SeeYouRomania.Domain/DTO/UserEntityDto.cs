@@ -18,5 +18,6 @@ namespace Domain.DTO
         public string SocialLinks { get; set; }
         public bool IsStudent { get; set; }
         public string LastName { get; set; }
+        public string ProfilePictureUrl { get; set; }
     }
 }
