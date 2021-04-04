@@ -22,7 +22,8 @@ namespace Domain.DTO
                     ForeignLanguages = dto.ForeignLanguages,
                     IsStudent = dto.IsStudent,
                     SocialLinks = dto.SocialLinks,
-                    ProfilePictureUrl = dto.ProfilePictureUrl
+                    ProfilePictureUrl = dto.ProfilePictureUrl,
+                    PhoneNumber = dto.PhoneNumber
                 };
             }
             
