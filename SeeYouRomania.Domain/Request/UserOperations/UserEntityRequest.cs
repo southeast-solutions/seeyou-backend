@@ -1,8 +1,8 @@
 ﻿using Domain.Models;
 
-namespace Domain.DTO
+namespace Domain.Request.UserOperations
 {
-    public class UserEntityDto
+    public class UserEntityRequest
     {
         public TourBusinessEntity TourBusinessEntity { get; set; }
         public TourOperatorEntity TourOperatorEntity { get; set; }

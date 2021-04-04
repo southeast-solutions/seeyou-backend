@@ -1,9 +1,9 @@
 ﻿using Business.Services;
 using Domain;
 using Domain.Contracts;
-using Domain.DTO;
 using Domain.Exceptions;
 using Domain.Models;
+using Domain.Request.UserOperations;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
@@ -18,7 +18,7 @@ namespace Test.Business.Services
             Mock<IMongoDbRepository<UserEntity>> repository = new Mock<IMongoDbRepository<UserEntity>>();
             var userService = new UserService(repository.Object);
 
-            var invalidUser = new UserEntityDto()
+            var invalidUser = new UserEntityRequest()
             {
                 UserType = null
             };

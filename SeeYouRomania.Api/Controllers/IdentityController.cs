@@ -2,9 +2,9 @@ using System;
 using System.Threading.Tasks;
 using Amazon.CognitoIdentityProvider.Model;
 using Domain.Contracts;
-using Domain.DTO;
 using Domain.Enums;
 using Domain.Request.Auth;
+using Domain.Request.UserOperations;
 using Domain.Response.Auth;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -32,7 +32,7 @@ namespace Api.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] UserEntityDto userEntity)
+        public async Task<IActionResult> Register([FromBody] UserEntityRequest userEntity)
         {
             var registerResponse = new RegisterResponse();
             

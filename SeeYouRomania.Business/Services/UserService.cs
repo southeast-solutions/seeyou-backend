@@ -4,10 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Business.Validators;
 using Domain.Contracts;
-using Domain.DTO;
 using Domain.Enums;
 using Domain.Exceptions;
 using Domain.Models;
+using Domain.Request.Other;
 using Domain.Request.UserOperations;
 
 namespace Business.Services
@@ -26,9 +26,9 @@ namespace Business.Services
             return userRepository.AsQueryable().ToList();
         }
 
-        public async Task<string> Add(UserEntityDto entityDto)
+        public async Task<string> Add(UserEntityRequest userEntity)
         {
-            var user = entityDto.ToModel();
+            var user = userEntity.ToModel();
             if (IsUserValid(user))
             {
                 await userRepository.Insert(user);
