@@ -10,6 +10,7 @@ using Domain.Contracts;
 using Domain.Enums;
 using Domain.Request.Auth;
 using Domain.Response.Auth;
+using Microsoft.Extensions.Logging;
 
 namespace Business.Services
 {
@@ -17,11 +18,13 @@ namespace Business.Services
     {
         private readonly AmazonCognitoIdentityProviderClient client;
         private readonly AwsEnvironment awsEnvironment;
+        private readonly ILogger logger;
         
-        public CognitoAuthService(AwsEnvironment awsEnvironment)
+        public CognitoAuthService(AwsEnvironment awsEnvironment, ILogger<CognitoAuthService> logger)
         {
             this.client = new AmazonCognitoIdentityProviderClient(RegionEndpoint.GetBySystemName(awsEnvironment.Region));
             this.awsEnvironment = awsEnvironment;
+            this.logger = logger;
         }
 
         public async Task<RegisterResponse> Register(RegisterRequest request)
@@ -65,16 +68,19 @@ namespace Business.Services
                 await client.SignUpAsync(registerRequest);
                 registerResponse.Success = true;
             }
-            catch (UsernameExistsException)
+            catch (UsernameExistsException e)
             {
+                logger.LogError(e.StackTrace);
                 registerResponse.FailureType = RegisterFailureTypes.EmailAddressTaken;
             }
-            catch (InvalidPasswordException)
+            catch (InvalidPasswordException e)
             {
+                logger.LogError(e.Message);
                 registerResponse.FailureType = RegisterFailureTypes.InvalidPassword;
             }
             catch (Exception e)
             {
+                logger.LogError(e.Message);
                 registerResponse.FailureType = RegisterFailureTypes.Other;
             }
 

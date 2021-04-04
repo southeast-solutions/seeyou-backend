@@ -39,7 +39,8 @@ namespace Domain.Request.Other
                     LastName = userEntity.LastName,
                     ForeignLanguages = userEntity.ForeignLanguages,
                     SocialLinks = userEntity.SocialLinks,
-                    ProfilePictureUrl = userEntity.ProfilePictureUrl
+                    ProfilePictureUrl = userEntity.ProfilePictureUrl,
+                    PhoneNumber = userEntity.PhoneNumber
                 };
             }
             
@@ -54,7 +55,8 @@ namespace Domain.Request.Other
                     LastName = userEntity.LastName,
                     ForeignLanguages = userEntity.ForeignLanguages,
                     SocialLinks = userEntity.SocialLinks,
-                    ProfilePictureUrl = userEntity.ProfilePictureUrl
+                    ProfilePictureUrl = userEntity.ProfilePictureUrl,
+                    PhoneNumber = userEntity.PhoneNumber
                 };
             }
 
@@ -69,7 +71,8 @@ namespace Domain.Request.Other
                     LastName = userEntity.LastName,
                     ForeignLanguages = userEntity.ForeignLanguages,
                     SocialLinks = userEntity.SocialLinks,
-                    ProfilePictureUrl = userEntity.ProfilePictureUrl
+                    ProfilePictureUrl = userEntity.ProfilePictureUrl,
+                    PhoneNumber = userEntity.PhoneNumber
                 };
             }
 
@@ -92,7 +95,8 @@ namespace Domain.Request.Other
                         FirstName = userEntity.TourOperatorEntity.FirstName,
                         LastName = userEntity.TourOperatorEntity.LastName,
                         ForeignLanguages = userEntity.TourOperatorEntity.ForeignLanguages,
-                        SocialLinks = userEntity.TourOperatorEntity.SocialLinks
+                        SocialLinks = userEntity.TourOperatorEntity.SocialLinks,
+                        PhoneNumber = userEntity.PhoneNumber
                     },
                     ProfilePictureUrl = userEntity.ProfilePictureUrl
                 };

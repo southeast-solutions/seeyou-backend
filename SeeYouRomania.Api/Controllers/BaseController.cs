@@ -19,7 +19,7 @@ namespace Api.Controllers
         
         protected bool IsAdmin()
         {
-            return GetUserType() == nameof(UserTypes.Admin);
+            return GetUserType() == UserTypes.Admin;
         }
         private ClaimsIdentity GetIdentity()
         {

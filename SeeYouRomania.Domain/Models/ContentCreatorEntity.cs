@@ -10,5 +10,6 @@ namespace Domain
         public string LastName { get; set; }
         public string ForeignLanguages { get; set; }
         public string SocialLinks { get; set; }
+        public string PhoneNumber { get; set; }
     }
 }
