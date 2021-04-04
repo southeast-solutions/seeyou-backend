@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Amazon;
 using Amazon.CognitoIdentityProvider;
@@ -101,8 +102,13 @@ namespace Business.Services
                 loginResponse.Token = authResponse.AuthenticationResult.IdToken;
                 loginResponse.Success = true;
 
-                GetUserRequest getUserRequest = new GetUserRequest();
-                getUserRequest.AccessToken = authResponse.AuthenticationResult.AccessToken;
+                GetUserRequest getUserRequest = new GetUserRequest()
+                {
+                    AccessToken = authResponse.AuthenticationResult.AccessToken
+                };
+                var getUserResponse = await client.GetUserAsync(getUserRequest);
+                loginResponse.UserType =
+                    getUserResponse.UserAttributes.First(a => a.Name.Equals(ClaimNames.UserType)).Value;
             }
             catch (UserNotFoundException)
             {

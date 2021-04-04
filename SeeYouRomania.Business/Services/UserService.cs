@@ -60,11 +60,6 @@ namespace Business.Services
 
         private bool IsUserValid(UserEntity user)
         {
-            if (!Enum.IsDefined(typeof(UserTypes), user.UserType))
-            {
-                return false;
-            }
-
             var userValidator = UserValidatorFactory.GetValidator(user.UserType);
             return userValidator.IsValid(user);
         }
