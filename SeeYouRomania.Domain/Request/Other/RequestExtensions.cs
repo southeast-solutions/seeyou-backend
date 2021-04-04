@@ -9,7 +9,7 @@ namespace Domain.Request.Other
     {
         public static UserEntity ToModel(this UserEntityRequest userEntity)
         {
-            if (userEntity.UserType == UserTypes.Promoter.ToString())
+            if (userEntity.UserType == UserTypes.Promoter)
             {
                 return new PromoterEntity()
                 {
@@ -28,7 +28,7 @@ namespace Domain.Request.Other
                 };
             }
             
-            if (userEntity.UserType == UserTypes.ContentCreator.ToString())
+            if (userEntity.UserType == UserTypes.ContentCreator)
             {
                 return new ContentCreatorEntity()
                 {
@@ -43,7 +43,7 @@ namespace Domain.Request.Other
                 };
             }
             
-            if (userEntity.UserType == UserTypes.Concierge.ToString())
+            if (userEntity.UserType == UserTypes.Concierge)
             {
                 return new ConciergeEntity()
                 {
@@ -58,7 +58,7 @@ namespace Domain.Request.Other
                 };
             }
 
-            if (userEntity.UserType == UserTypes.Admin.ToString())
+            if (userEntity.UserType == UserTypes.Admin)
             {
                 return new AdminEntity()
                 {
@@ -73,7 +73,7 @@ namespace Domain.Request.Other
                 };
             }
 
-            if (userEntity.UserType == UserTypes.Tour.ToString())
+            if (userEntity.UserType == UserTypes.Tour)
             {
                 return new TourEntity()
                 {

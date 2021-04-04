@@ -1,15 +1,11 @@
-﻿using System;
-
-namespace Domain.Enums
+﻿namespace Domain.Enums
 {
-    [Flags]
-    public enum UserTypes
+    public static class UserTypes
     {
-        Unknown,
-        Promoter,
-        ContentCreator,
-        Concierge,
-        Tour,
-        Admin
+        public const string Promoter = "PROMOTER";
+        public const string ContentCreator = "CONTENTCREATOR";
+        public const string Concierge = "CONCIERGE";
+        public const string Tour = "TOUR";
+        public const string Admin = "ADMIN";
     }
 }

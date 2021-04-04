@@ -4,7 +4,7 @@ namespace Business.Validators
 {
     public static class UserValidatorFactory
     {
-        public static DefaultUserValidator GetValidator(UserTypes userType)
+        public static DefaultUserValidator GetValidator(string userType)
         {
             switch (userType)
             {
