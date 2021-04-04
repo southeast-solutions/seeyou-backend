@@ -9,7 +9,7 @@ namespace Domain.Contracts
         Task<GetExperiencesByUserIdResponse> GetByUserId(GetExperiencesByUserIdRequest request);
         Task<GetExperiencesByLocationResponse> GetByLocation(GetExperiencesByLocationRequest getExperiencesByLocationRequest);
         Task Add(AddExperienceRequest addExperienceRequest, string id);
-        Task Update(UpdateExperienceRequest updateExperienceRequest);
-        Task Delete(DeleteExperienceRequest deleteExperienceRequest);
+        Task Update(UpdateExperienceRequest updateExperienceRequest, string userId);
+        Task Delete(DeleteExperienceRequest deleteExperienceRequest, string userId);
     }
 }

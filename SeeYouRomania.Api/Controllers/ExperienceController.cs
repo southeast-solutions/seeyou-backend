@@ -62,7 +62,8 @@ namespace Api.Controllers
         [HttpPost("updateExperience")]
         public async Task<IActionResult> UpdateExperience([FromBody] UpdateExperienceRequest updateExperienceRequest)
         {
-            await experienceService.Update(updateExperienceRequest);
+            var userId = GetId();
+            await experienceService.Update(updateExperienceRequest, userId);
 
             return Ok(updateExperienceRequest);
         }
@@ -70,7 +71,8 @@ namespace Api.Controllers
         [HttpPost("deleteExperience")]
         public async Task<IActionResult> DeleteExperience([FromBody] DeleteExperienceRequest deleteExperienceRequest)
         {
-            await experienceService.Delete(deleteExperienceRequest);
+            var userId = GetId();
+            await experienceService.Delete(deleteExperienceRequest, userId);
 
             return Ok(deleteExperienceRequest);
         }

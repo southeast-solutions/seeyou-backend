@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Domain;
 using Domain.Contracts;
+using Domain.Exceptions;
 using Domain.Request.Experiences;
 using Domain.Response.Experiences;
 
@@ -37,20 +38,43 @@ namespace Business.Services
 
         public async Task Add(AddExperienceRequest addExperienceRequest, string id)
         {
-            var experience = addExperienceRequest.Experience;
-            experience.UserId = id;
-            
-            await experienceRepository.Insert(experience);
+            if (!string.IsNullOrEmpty(id))
+            {
+                var experience = addExperienceRequest.Experience;
+                experience.UserId = id;
+
+                await experienceRepository.Insert(experience);
+            }
+            else
+            {
+                throw new InvalidInputException();
+            }
         }
 
-        public async Task Update(UpdateExperienceRequest updateExperienceRequest)
+        public async Task Update(UpdateExperienceRequest updateExperienceRequest, string userId)
         {
-            await experienceRepository.Update(updateExperienceRequest.Experience);
+            var experience = await experienceRepository.FindById(updateExperienceRequest.Experience.Id);
+            if (experience.UserId == userId)
+            {
+                await experienceRepository.Update(updateExperienceRequest.Experience);
+            }
+            else
+            {
+                throw new UnauthorizedUserException();
+            }
         }
 
-        public async Task Delete(DeleteExperienceRequest deleteExperienceRequest)
+        public async Task Delete(DeleteExperienceRequest deleteExperienceRequest, string userId)
         {
-            await experienceRepository.Delete(experience => experience.Id == deleteExperienceRequest.Id);
+            var experience = await experienceRepository.FindById(deleteExperienceRequest.Id);
+            if (experience.UserId == userId)
+            {
+                await experienceRepository.Delete(experience => experience.Id == deleteExperienceRequest.Id);
+            }
+            else
+            {
+                throw new UnauthorizedUserException();
+            }
         }
     }
 }
